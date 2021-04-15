@@ -1,3 +1,4 @@
+const intelec = require('./scrappers/intelec.scrapper');
 const extremeTech = require('./scrappers/extremeTech.scrapper');
 
 async function scrapeAll(browserInstance){
@@ -6,6 +7,7 @@ async function scrapeAll(browserInstance){
         browser = await browserInstance;
         // Add all the scrappers here==>
         await extremeTech.scraper(browser);
+        await intelec.scraper(browser);
 
     }
     catch(err){
