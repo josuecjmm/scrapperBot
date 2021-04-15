@@ -1,3 +1,5 @@
+const {extremeTech, intelec, techzilla} = require('../utils/constants').urls
+
 const cardsFound = (cards) => {
     return cards.map(card => {
         return {
@@ -40,7 +42,7 @@ exports.extremeTech = (cards) => {
                 type: "section",
                 text: {
                     type: "mrkdwn",
-                    text: "Visit: https://extremetechcr.com/tienda/18-tarjetas-de-video#/chip-nvidia\n:phone: 4001-4991 \n:phone: 4000-2224"
+                    text: `Visit: ${extremeTech}\n:phone: 4001-4991 \n:phone: 4000-2224`
                 }
             },
             {
@@ -79,7 +81,46 @@ exports.intelec = (cards) => {
                 type: "section",
                 text: {
                     type: "mrkdwn",
-                    text: "Visit: https://www.intelec.co.cr/pcgaming/gpu\n:phone: 2202-1200"
+                    text: `Visit: ${intelec} \n:phone: 2202-1200`
+                }
+            },
+            {
+                type: "divider"
+            }
+        ]
+    }
+
+    return blocks
+}
+
+exports.techzilla = (cards) => {
+    const cardsParsed = cardsFound(cards)
+
+    const blocks = {
+        blocks: [
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: "*:department_store: TECHZILLA*"
+                }
+            },
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: "*:moneybag::moneybag::moneybag:The following cards have been found:*"
+                }
+            },
+            ...cardsParsed,
+            {
+                type: "divider"
+            },
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: `Visit: ${techzilla}\n:phone: +506 4000 1834`
                 }
             },
             {
