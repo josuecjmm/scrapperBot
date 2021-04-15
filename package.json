@@ -1,0 +1,17 @@
+{
+  "name": "video-card-scrapper",
+  "version": "1.0.0",
+  "description": "A web scrapper to see available video cards",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "puppeteer": "^8.0.0"
+  }
+}
