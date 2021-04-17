@@ -1,4 +1,4 @@
-const {extremeTech, intelec, techzilla, ticotek} = require('../utils/constants').urls
+const {extremeTech, intelec, techzilla, ticotek, pctodocr} = require('../utils/constants').urls
 
 const cardsFound = (cards) => {
     return cards.map(card => {
@@ -160,6 +160,45 @@ exports.ticotek = (cards) => {
                 text: {
                     type: "mrkdwn",
                     text: `Visit: ${ticotek}\n:phone: +506 2261 1198`
+                }
+            },
+            {
+                type: "divider"
+            }
+        ]
+    }
+
+    return blocks
+}
+
+exports.pctodocr = (cards) => {
+    const cardsParsed = cardsFound(cards)
+
+    const blocks = {
+        blocks: [
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: "*:department_store: PCTODOCR*"
+                }
+            },
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: "*:moneybag::moneybag::moneybag:The following cards have been found:*"
+                }
+            },
+            ...cardsParsed,
+            {
+                type: "divider"
+            },
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: `Visit: ${pctodocr}\n:phone: +506 4702 3838`
                 }
             },
             {
