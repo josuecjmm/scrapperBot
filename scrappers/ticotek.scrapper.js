@@ -4,6 +4,7 @@ const Ticotek = require('../pageObjects/ticotek')
 const {ticotek} = require('../utils/constants').urls
 const {possibleCards}  = require('../utils/constants')
 const {SLACK_BOT_HOOK} = process.env
+const {getCardsMatches, sendSlackMessage} = require('../utils/common')
 
 const scraperObject = {
 
@@ -14,31 +15,12 @@ const scraperObject = {
         await page.goto(ticotek);
         // Wait for the required DOM to be rendered
         await page.waitForSelector(Ticotek.productsName);
-
         // Retrieve all the cards that are available
         let cards = await page.$$eval(Ticotek.productsName, card=> card.map(c=> c.innerText.toLowerCase()))
-        let cardMatches = [];
-        cards.forEach(c => {
-                const p = possibleCards.filter(p => c.includes(p))
-            if(p.length > 0) cardMatches.push(c)
-        })
-
+        const cardMatches = getCardsMatches(cards)
         // Print results and send slack message
-        if (cardMatches.length > 0) {
-            console.log('The cards available are: ', cardMatches)
-            const slackMessage = slackMessageParser.ticotek(cardMatches)
-            try {
-                await axios.post(
-                    SLACK_BOT_HOOK,
-                    slackMessage
-                )
-            } catch (e) {
-                console.log('Error creating slack message: ', console.log(e))
-            }
-        } else {
-            console.log('No cards found at the moment :( !')
-        }
-
+        const slackMessage = slackMessageParser.ticotek(cardMatches)
+        sendSlackMessage(cardMatches, slackMessage)
         // Close page ( tab )
         await page.close()
     }
