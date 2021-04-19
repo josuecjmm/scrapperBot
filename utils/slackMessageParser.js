@@ -1,4 +1,8 @@
-const {extremeTech, intelec, techzilla, ticotek, pctodocr} = require('../utils/constants').urls
+const {
+    extremeTech, intelec,
+    techzilla, ticotek,
+    pctodocr, faithTechnology
+} = require('../utils/constants').urls
 
 const cardsFound = (cards) => {
     return cards.map(card => {
@@ -199,6 +203,45 @@ exports.pctodocr = (cards) => {
                 text: {
                     type: "mrkdwn",
                     text: `Visit: ${pctodocr}\n:phone: +506 4702 3838`
+                }
+            },
+            {
+                type: "divider"
+            }
+        ]
+    }
+
+    return blocks
+}
+
+exports.faithTechnology = (cards) => {
+    const cardsParsed = cardsFound(cards)
+
+    const blocks = {
+        blocks: [
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: "*:department_store: FAITH TECHNOLOGY*"
+                }
+            },
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: "*:moneybag::moneybag::moneybag:The following cards have been found:*"
+                }
+            },
+            ...cardsParsed,
+            {
+                type: "divider"
+            },
+            {
+                type: "section",
+                text: {
+                    type: "mrkdwn",
+                    text: `Visit: ${faithTechnology}\n:phone: (+506) 6241-5721`
                 }
             },
             {

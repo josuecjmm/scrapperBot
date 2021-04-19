@@ -4,6 +4,7 @@ const ExtremeTech = require('../pageObjects/extremeTech')
 const {extremeTech} = require('../utils/constants').urls
 const {possibleCards}  = require('../utils/constants')
 const {SLACK_BOT_HOOK} = process.env
+const {getCardsMatches, sendSlackMessage} = require('../utils/common')
 
 const scraperObject = {
 
@@ -17,28 +18,10 @@ const scraperObject = {
 
         // Retrieve all the cards that are available
         let cards = await page.$$eval(ExtremeTech.productsName, card=> card.map(c=> c.innerText.toLowerCase()))
-        let cardMatches = [];
-        cards.forEach(c => {
-                const p = possibleCards.filter(p => c.includes(p))
-            if(p.length > 0) cardMatches.push(c)
-        })
-
+        const cardMatches = getCardsMatches(cards)
         // Print results and send slack message
-        if (cardMatches.length > 0) {
-            console.log('The cards available are: ', cardMatches)
-            const slackMessage = slackMessageParser.extremeTech(cardMatches)
-            try {
-                await axios.post(
-                    SLACK_BOT_HOOK,
-                    slackMessage
-                )
-            } catch (e) {
-                console.log('Error creating slack message: ', console.log(e))
-            }
-        } else {
-            console.log('No cards found at the moment :( !')
-        }
-
+        const slackMessage = slackMessageParser.extremeTech(cardMatches)
+        sendSlackMessage(cardMatches, slackMessage)
         // Close page ( tab )
         await page.close()
     }
