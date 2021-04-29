@@ -8,7 +8,7 @@ const Cronjob = require('cron').CronJob
 let browserInstance = browserObject.startBrowser()
 
 // Pass the browser instance to the scraper controller
-const job = new Cronjob('*/1 * * * *', () => {
+const job = new Cronjob('*/30 * * * *', () => {
     scraperController(browserInstance)
 }, null, true, 'America/Costa_Rica')
 

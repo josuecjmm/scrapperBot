@@ -6,4 +6,4 @@ exports.urls = {
     pctodocr: 'https://pctodocr.com/product-category/componentes/tarjeta-video'
 }
 
-exports.possibleCards = ['3060ti', 'ti', '3070', '3080', '5700', '1660']
+exports.possibleCards = ['3060ti', 'ti', '3070', '3080', '5700']
